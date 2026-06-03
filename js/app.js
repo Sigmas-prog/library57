@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   // 4. Первичный рендеринг главной страницы
   renderHomePage();
+  renderHomeGenres();
 
   // Заполняем выпадающие списки классов при инициализации
   const loginGradeSelect = document.getElementById("login-grade");
@@ -81,6 +82,7 @@ function initRouter() {
       renderNewsPage();
     } else if (route === "home") {
       renderHomePage();
+      renderHomeGenres();
     }
   };
   
@@ -206,6 +208,27 @@ function renderHomePage() {
   }
 }
 
+
+function renderHomeGenres() {
+  const grid = document.getElementById("home-genres-grid");
+  if (!grid) return;
+  
+  grid.innerHTML = "";
+  
+  Object.keys(GENRES).forEach(genreKey => {
+    const g = GENRES[genreKey];
+    const card = document.createElement("div");
+    card.className = "genre-card";
+    card.style.backgroundImage = `url('${g.cover}')`;
+    card.onclick = () => filterByGenre(genreKey);
+    
+    card.innerHTML = `
+      <h3>${genreKey}</h3>
+    `;
+    grid.appendChild(card);
+  });
+}
+
 // --- Рендеринг Страницы Каталога ---
 let selectedGenre = "";
 function renderCatalogPage() {
@@ -243,6 +266,18 @@ function renderCatalogPage() {
       `;
       genreGrid.appendChild(card);
     });
+  }
+  
+  // Обновление активного класса на кнопках жанров в каталоге
+  if (genreGrid) {
+    genreGrid.querySelectorAll(".genre-card").forEach(c => c.classList.remove("active"));
+    const allCard = document.getElementById("genre-card-all");
+    if (selectedGenre === "") {
+      if (allCard) allCard.classList.add("active");
+    } else {
+      const card = document.getElementById(`genre-card-${selectedGenre}`);
+      if (card) card.classList.add("active");
+    }
   }
   
   // Получаем значения фильтров
@@ -346,17 +381,24 @@ function renderCatalogPage() {
 
 function filterByGenre(genre) {
   selectedGenre = genre;
-  document.querySelectorAll(".genre-card").forEach(c => c.classList.remove("active"));
-  if (genre === "") {
-    document.getElementById("genre-card-all").classList.add("active");
-  } else {
-    document.getElementById(`genre-card-${genre}`).classList.add("active");
-  }
-  // Сбросить поджанр
-  const subSelect = document.getElementById("catalog-subgenre-filter");
-  if (subSelect) subSelect.value = "";
   
-  renderCatalogPage();
+  if (window.currentRoute !== "catalog") {
+    window.location.hash = "#/catalog";
+  } else {
+    document.querySelectorAll(".genre-card").forEach(c => c.classList.remove("active"));
+    const allCard = document.getElementById("genre-card-all");
+    if (genre === "") {
+      if (allCard) allCard.classList.add("active");
+    } else {
+      const card = document.getElementById(`genre-card-${genre}`);
+      if (card) card.classList.add("active");
+    }
+    // Сбросить поджанр
+    const subSelect = document.getElementById("catalog-subgenre-filter");
+    if (subSelect) subSelect.value = "";
+    
+    renderCatalogPage();
+  }
 }
 
 // Добавить/удалить из прочитанных по клику на сердечко
@@ -918,7 +960,17 @@ function awardExternalQuizPoints(title, author, quizLink) {
   // Добавляем +15 баллов за прохождение самого квиза
   addPoints(15);
   
+  // Добавляем в пройденные квизы, чтобы на карточке отображался статус "Пройдено"
+  if (!userProfile.completedQuizzes.includes(title)) {
+    userProfile.completedQuizzes.push(title);
+    saveUserProfile();
+  }
+  
   showToast(`Запуск квиза! Тебе начислено +15 баллов за участие! 🌟`);
+  
+  if (window.currentRoute === "quizzes") {
+    renderQuizzesList();
+  }
   
   // Открываем квиз в новой вкладке
   window.open(quizLink, "_blank");

@@ -384,6 +384,31 @@ function findTildaBook(title) {
 }
 
 // Обработка сырых записей: дедупликация, подсчет экземпляров и категоризация
+
+// Фильтр для исключения скучных академических, педагогических и административных книг из детского каталога
+function isAcademicBook(title, author) {
+  const t = title.toLowerCase();
+  const a = author.toLowerCase();
+  return t.includes("агп") || 
+         t.includes("основы управл. школой") || 
+         t.includes("конфликтолог") || 
+         t.includes("патриотич") || 
+         t.includes("методическ") || 
+         t.includes("учебное пособие") || 
+         t.includes("дидактическ") || 
+         t.includes("хрестоматия для учителей") ||
+         t.includes("инвентарная книга") ||
+         t.includes("классный журнал") ||
+         t.includes("воспитание") ||
+         t.includes("образование") ||
+         t.includes("пед. очерки") ||
+         t.includes("справочник классного руководителя") ||
+         t.includes("педагогика") ||
+         t.includes("методика") ||
+         t.includes("конфликты") ||
+         a.includes("педагог");
+}
+
 function processRawBooks(rawBooks) {
   const booksMap = new Map();
   
@@ -392,6 +417,7 @@ function processRawBooks(rawBooks) {
     const author = b.author ? b.author.replace(/[\?]/g, "").trim() : "Не указан";
     const title = b.title ? b.title.replace(/[\?]/g, "").trim() : "";
     if (!title || title === "Название") continue;
+    if (isAcademicBook(title, author)) continue;
     
     const key = `${author.toLowerCase()}|||${title.toLowerCase()}`;
     
