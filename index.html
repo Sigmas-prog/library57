@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Библиотека 57 — Сайт школьной библиотеки</title>
+  <meta name="description" content="Интерактивный сайт библиотеки начальной школы №57 (г. Москва). Каталог книг, викторины, личный кабинет и ИИ-помощник.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- --- ШАПКА САЙТА (HEADER) --- -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#/home" class="logo" id="logo-link">
+        <img src="assets/logo57site.png" alt="Логотип 57" class="logo-img">
+        <strong style="margin-left: 8px;">Библиотека 57</strong>
+      </a>
+      
+      <!-- Бургер-иконка для мобильных -->
+      <div class="burger-menu" id="burger-toggle-btn">
+        <span class="burger-bar"></span>
+        <span class="burger-bar"></span>
+        <span class="burger-bar"></span>
+      </div>
+
+      <!-- Меню навигации -->
+      <nav>
+        <ul class="nav-menu">
+          <li><a class="nav-link active" data-target="home">Главная</a></li>
+          <li><a class="nav-link" data-target="catalog">Проект Литерапорт</a></li>
+          <li><a class="nav-link" data-target="quizzes">Литературные игры</a></li>
+          <li><a class="nav-link" data-target="links">Интернет для книголюбов</a></li>
+          <li><a class="nav-link" data-target="news">Хорошие Новости</a></li>
+          <li><a class="nav-link" data-target="contacts">Контакты</a></li>
+          <li><a class="nav-link" data-target="profile" style="border: 2px solid var(--color-orange); color: var(--color-orange); border-radius: 20px;">Кабинет 🦁</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- --- ГЛАВНАЯ ОБЛАСТЬ (MAIN CONTENT) --- -->
+  <main class="main-wrapper">
+
+    <!-- 1. СТРАНИЦА: ГЛАВНАЯ -->
+    <section id="view-home" class="page-view active">
+      <div class="hero-section">
+        <div class="hero-text">
+          <span style="font-size: 0.85rem; text-transform: uppercase; color: var(--color-teal); font-weight: 700; letter-spacing: 1px;">Проект начальной школы</span>
+          <h1 style="margin: 5px 0 10px;">Библиотека 57</h1>
+          <h3 style="margin-bottom: 15px;">Удовольствие и польза ✨</h3>
+          <p>Добро пожаловать в современное интерактивное пространство библиотеки начальных классов Школы №57. Мы объединили наш книжный фонд, игры-викторины и даже ИИ-ассистента, чтобы чтение приносило вам радость!</p>
+          <a href="#/catalog" class="btn btn-primary">Поиск книг в Литерапорте 🧭</a>
+        </div>
+        <div class="hero-illustration">
+          <img src="assets/kandinsky-download-1.png" alt="Книжный арт" class="hero-img">
+        </div>
+      </div>
+
+      <!-- Интерактивная сетка лаунчпада из прототипа Tilda -->
+      <div class="tilda-launchpad-section">
+        <h2>🧭 Интерактивная карта библиотеки</h2>
+        <div class="tilda-grid">
+          
+          <!-- Кнопка 1: Хорошие Новости -->
+          <div class="tilda-btn tb-news" onclick="window.location.hash='#/news'">
+            <span class="tilda-btn-icon">📢</span>
+            Хорошие Новости
+          </div>
+          
+          <!-- Кнопка 2: Проект Литерапорт -->
+          <div class="tilda-btn tb-literaport" onclick="window.location.hash='#/catalog'">
+            <span class="tilda-btn-icon">📚</span>
+            Литерапорт — проект для начальной школы
+          </div>
+          
+          <!-- Кнопка 3: Интернет для книголюбов -->
+          <div class="tilda-btn tb-links" onclick="window.location.hash='#/links'">
+            <span class="tilda-btn-icon">🌐</span>
+            Интернет для книголюбов
+          </div>
+          
+          <!-- Кнопка 4: Топ-7 книг -->
+          <div class="tilda-btn tb-top7" onclick="document.getElementById('top-books-anchor').scrollIntoView({behavior: 'smooth'})">
+            <span class="tilda-btn-icon">⭐</span>
+            Топ-7 самых читаемых книг
+          </div>
+          
+          <!-- Кнопка 5: Анкета читателя -->
+          <div class="tilda-btn tb-survey" onclick="window.location.hash='#/contacts'">
+            <span class="tilda-btn-icon">📝</span>
+            Анкета читателя
+          </div>
+          
+          <!-- Кнопка 6: Литературные игры -->
+          <div class="tilda-btn tb-games" onclick="window.location.hash='#/quizzes'">
+            <span class="tilda-btn-icon">🎮</span>
+            Литературные игры
+          </div>
+          
+          <!-- Кнопка 7: Библиотечный квиз -->
+          <div class="tilda-btn tb-quiz" onclick="window.location.hash='#/quizzes'">
+            <span class="tilda-btn-icon">🧠</span>
+            Библиотечный квиз
+          </div>
+          
+          <!-- Кнопка 8: Контакты библиотекарей -->
+          <div class="tilda-btn tb-contacts" onclick="window.location.hash='#/contacts'">
+            <span class="tilda-btn-icon">📞</span>
+            Контакты библиотекарей
+          </div>
+          
+          <!-- Кнопка 9: Над сайтом работали -->
+          <div class="tilda-btn tb-credits" onclick="showCreditsAlert()">
+            <span class="tilda-btn-icon">👥</span>
+            Над сайтом работали
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Слайдер ТОП-7 читаемых книг -->
+      <div class="slider-container-home" id="top-books-anchor">
+        <div class="section-title-wrapper">
+          <h2 class="section-title">🔥 Топ-7 самых читаемых книг</h2>
+          <a href="#/catalog" style="color: var(--color-orange); font-weight: 700;">Перейти в каталог →</a>
+        </div>
+        <div class="books-slider" id="top-books-slider">
+          <!-- Загружается из JS -->
+        </div>
+      </div>
+
+      <!-- Блок информации и расписания -->
+      <div class="schedule-widget-home" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; align-items: center;">
+        <div>
+          <h2 style="margin-bottom: 10px; font-size: 1.4rem;">📅 Встречи Клуба Книголюбов 57</h2>
+          <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 15px;">Мы ждем ребят 1-5 классов каждую пятницу в 15:00 в нашем уютном читательском кругу в кабинете №204. Мы обсуждаем книжные приключения, рисуем любимых персонажей и играем!</p>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem;">
+            <li>🎨 <strong>05 июня, 15:00</strong> — Рисуем свои комиксы и фан-арт</li>
+            <li>🚀 <strong>12 июня, 15:00</strong> — Космический квиз с призовыми баллами</li>
+            <li>🦕 <strong>19 июня, 15:00</strong> — Путешествие в мир динозавров и драконов</li>
+          </ul>
+        </div>
+        <div style="background:#F5F7F8; padding:20px; border-radius:var(--border-radius-md); text-align:center;">
+          <span style="font-size: 2.2rem;">🕒</span>
+          <h3 style="margin-top: 5px; font-size: 1.15rem;">Режим работы библиотеки</h3>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 5px;">Понедельник — Пятница: с 9:00 до 16:00<br>Суббота, Воскресенье — выходные дни</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. СТРАНИЦА: ЛИТЕРАПОРТ (КАТАЛОГ) -->
+    <section id="view-catalog" class="page-view">
+      <div class="catalog-layout-header">
+        <div>
+          <h1>Компас Литерапорта 🧭</h1>
+          <p style="color: var(--text-secondary); margin-top: 5px;">Выбирай плитку жанра или пользуйся умным поиском по каталогу!</p>
+        </div>
+        <span style="font-size: 2.5rem;">📖</span>
+      </div>
+
+      <!-- Быстрые плитки жанров -->
+      <div class="genres-grid-container">
+        <div class="genres-cards-grid" id="genres-cards-grid">
+          <!-- Динамические карточки из JS -->
+        </div>
+      </div>
+
+      <!-- Панель управления каталогом -->
+      <div class="catalog-controls">
+        <div class="search-input-wrapper">
+          <span class="search-icon-inside">🔍</span>
+          <input type="text" id="catalog-search" oninput="renderCatalogPage()" placeholder="Искать книгу по названию, автору или аннотации...">
+        </div>
+        
+        <select id="catalog-subgenre-filter" onchange="renderCatalogPage()" class="filter-select" style="display: none;">
+          <option value="">Все поджанры</option>
+        </select>
+        
+        <select id="catalog-sort" onchange="renderCatalogPage()" class="filter-select">
+          <option value="popularity">По количеству экземпляров</option>
+          <option value="title">По названию книги (А-Я)</option>
+          <option value="year">По году издания (новые)</option>
+        </select>
+      </div>
+
+      <div id="catalog-books-count" style="margin-bottom: 20px; font-weight: 700; color: var(--text-secondary);">Найдено книг: 0</div>
+
+      <!-- Книжная сетка -->
+      <div class="books-grid" id="books-grid-container">
+        <!-- Книги загружаются из JS -->
+      </div>
+    </section>
+
+    <!-- 3. СТРАНИЦА: ЛИТЕРАТУРНЫЕ ИГРЫ (ВИКТОРИНЫ) -->
+    <section id="view-quizzes" class="page-view">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <h1>Литературные игры и квизы 🎮</h1>
+        <p style="color: var(--text-secondary); margin-top: 5px;">Пройди викторину по любимым книгам, набери баллы и повышай свой ранг читателя!</p>
+      </div>
+      <div class="quiz-cards-grid" id="quiz-list-container">
+        <!-- Карточки викторин из JS -->
+      </div>
+    </section>
+
+    <!-- 4. СТРАНИЦА: ИНТЕРНЕТ ДЛЯ КНИГОЛЮБОВ -->
+    <section id="view-links" class="page-view">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <h1>Интернет для книголюбов 🌐</h1>
+        <p style="color: var(--text-secondary); margin-top: 5px;">Полезные детские интернет-ресурсы с книгами, лекциями, диафильмами и играми.</p>
+      </div>
+      <div class="links-grid">
+        <a href="https://arch.rgdb.ru/" target="_blank" class="resource-card">
+          <div class="resource-icon-box">📚</div>
+          <h3>НЭДБ</h3>
+          <p>Национальная электронная детская библиотека. Огромный архив оцифрованных диафильмов, сказок и старых журналов!</p>
+          <span class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">Перейти на сайт</span>
+        </a>
+        <a href="https://weblandia.ru/" target="_blank" class="resource-card">
+          <div class="resource-icon-box">🧸</div>
+          <h3>ВебЛандия</h3>
+          <p>Каталог лучших проверенных и безопасных сайтов для детей. Обучающие игры, творчество и литература.</p>
+          <span class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">Перейти на сайт</span>
+        </a>
+        <a href="https://arzamas.academy/special/kids" target="_blank" class="resource-card">
+          <div class="resource-icon-box">🧠</div>
+          <h3>Арзамас Детская комната</h3>
+          <p>Интересные аудиолекции, рассказы про древний мир, мифы и шедевры искусства, записанные для детей.</p>
+          <span class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">Перейти на сайт</span>
+        </a>
+        <a href="https://www.papmambook.ru/" target="_blank" class="resource-card">
+          <div class="resource-icon-box">📖</div>
+          <h3>Папмамбук</h3>
+          <p>Сайт, где авторы и дети делятся рецензиями на интересные книги. Узнай, что читают твои сверстники!</p>
+          <span class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">Перейти на сайт</span>
+        </a>
+        <a href="https://www.culture.ru/themes/256193/kultura-dlya-shkolnikov" target="_blank" class="resource-card">
+          <div class="resource-icon-box">🏛️</div>
+          <h3>Культура для школьников</h3>
+          <p>Портал Министерства культуры с бесплатными фильмами, детскими спектаклями и виртуальными выставками.</p>
+          <span class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">Перейти на сайт</span>
+        </a>
+        <a href="https://docs.google.com/spreadsheets/d/1O_gKZkexCZOMmL1Vd2CJ6J_ZznWX0T7FokVzxCbdXsU/edit?gid=0#gid=0" target="_blank" class="resource-card">
+          <div class="resource-icon-box">📊</div>
+          <h3>Google Таблица каталога</h3>
+          <p>Просмотр исходного файла базы данных книг библиотеки №57 со всеми инвентарными записями.</p>
+          <span class="btn btn-outline" style="padding: 6px 15px; font-size: 0.8rem;">Просмотреть таблицу</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 5. СТРАНИЦА: ХОРОШИЕ НОВОСТИ -->
+    <section id="view-news" class="page-view">
+      <div class="news-layout">
+        <div>
+          <h1 style="margin-bottom: 5px;">Хорошие Новости 📢</h1>
+          <p style="color: var(--text-secondary); margin-bottom: 25px;">Самые свежие новости нашей библиотеки и важные объявления.</p>
+          <div class="news-feed-container" id="news-feed-container">
+            <!-- Загружается из JS -->
+          </div>
+        </div>
+        
+        <!-- Кабинет библиотекаря: Добавить новость -->
+        <div class="admin-card-news">
+          <h2>🔑 Панель Библиотекаря</h2>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom: 15px;">Добавление объявления или новости на сайт:</p>
+          <form id="admin-add-news-form">
+            <div class="form-group">
+              <label for="admin-news-title">Заголовок новости</label>
+              <input type="text" id="admin-news-title" class="form-control" placeholder="Поступление сказок!" required>
+            </div>
+            <div class="form-group">
+              <label for="admin-news-category">Категория</label>
+              <select id="admin-news-category" class="form-control">
+                <option value="Мероприятие">Мероприятие</option>
+                <option value="Книжные новинки">Книжные новинки</option>
+                <option value="Конкурсы">Конкурсы</option>
+                <option value="Объявление">Объявление</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="admin-news-summary">Краткое описание (1 строка)</label>
+              <input type="text" id="admin-news-summary" class="form-control" placeholder="Новые приключения на полках библиотеки..." required>
+            </div>
+            <div class="form-group">
+              <label for="admin-news-content">Полный текст новости</label>
+              <textarea id="admin-news-content" class="form-control" rows="5" placeholder="Опишите мероприятие или новость подробнее..." required style="resize:vertical;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Опубликовать новость 📢</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. СТРАНИЦА: КОНТАКТЫ -->
+    <section id="view-contacts" class="page-view">
+      <h1 style="margin-bottom: 30px; text-align: center;">Контакты библиотеки 📞</h1>
+      <div class="contacts-grid">
+        <div class="contacts-info">
+          <div class="contact-item">
+            <span class="contact-icon-wrapper">📍</span>
+            <div class="contact-details">
+              <h3>Адрес школы</h3>
+              <p>г. Москва, Хользунов переулок, д. 8<br>Здание начальной школы №57, 2 этаж, кабинет №204</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon-wrapper">✉️</span>
+            <div class="contact-details">
+              <h3>Электронная почта</h3>
+              <p>biblio@sch57.ru</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon-wrapper">🕒</span>
+            <div class="contact-details">
+              <h3>Режим работы</h3>
+              <p>Понедельник – Пятница: с 9:00 до 16:00<br>Суббота и Воскресенье — выходные дни</p>
+            </div>
+          </div>
+          
+          <div class="map-wrapper">
+            <div style="background:#E0F2F1; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 15px;">
+              <span style="font-size:2rem">🏫</span>
+              <strong style="margin-top:5px;">ГБОУ Школа №57 (Начальные классы)</strong>
+              <span style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;">Москва, Хользунов пер., 8 (метро Фрунзенская)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contacts-feedback-card">
+          <h2>Написать библиотекарю ✉️</h2>
+          <p>Заполни форму, чтобы задать вопрос, предложить книгу для закупки в библиотеку или отправить отзыв!</p>
+          <form id="contacts-feedback-form">
+            <div class="form-group">
+              <label for="feedback-name">Твоё имя и класс</label>
+              <input type="text" id="feedback-name" class="form-control" placeholder="Никита, 2 класс 'А'" required>
+            </div>
+            <div class="form-group">
+              <label for="feedback-email">Email для ответа (по желанию)</label>
+              <input type="email" id="feedback-email" class="form-control" placeholder="parent@mail.ru">
+            </div>
+            <div class="form-group">
+              <label for="feedback-message">Сообщение / Книжное предложение</label>
+              <textarea id="feedback-message" class="form-control" rows="4" placeholder="Какую книгу ты бы хотел видеть в нашей библиотеке?" required style="resize:vertical;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить сообщение 🚀</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. СТРАНИЦА: ЛИЧНЫЙ КАБИНЕТ -->
+    <section id="view-profile" class="page-view">
+      
+      <!-- --- АВТОРИЗАЦИЯ (LOGGED OUT VIEW) --- -->
+      <div id="profile-auth-container" class="profile-auth-box" style="display: none;">
+        <div class="auth-tabs">
+          <button type="button" class="auth-tab-btn active" id="auth-tab-login-btn" onclick="switchAuthTab('login')">🦁 Войти в кабинет</button>
+          <button type="button" class="auth-tab-btn" id="auth-tab-register-btn" onclick="switchAuthTab('register')">🌱 Зарегистрироваться</button>
+        </div>
+
+        <!-- Форма Входа -->
+        <form id="auth-login-form" class="auth-form active">
+          <h2>Вход для читателей Школы №57</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.9rem;">Выбери свой класс, имя и введи пароль!</p>
+          
+          <div class="form-group">
+            <label for="login-grade">Выбери свой класс:</label>
+            <select id="login-grade" class="form-control" onchange="updateLoginNamesDropdown()" required>
+              <option value="" disabled selected>-- Выбери класс --</option>
+              <!-- Заполняется из JS (CLASSES) -->
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="login-name">Выбери своё имя:</label>
+            <select id="login-name" class="form-control" required disabled>
+              <option value="" disabled selected>-- Сначала выбери класс --</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="login-password">Введи пароль:</label>
+            <input type="password" id="login-password" class="form-control" placeholder="Твой пароль..." required>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Войти в кабинет 🚀</button>
+        </form>
+
+        <!-- Форма Регистрации -->
+        <form id="auth-register-form" class="auth-form">
+          <h2>Создать новый кабинет читателя</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9rem;">Присоединяйся к Литерапорту, копи баллы за викторины и помогай своему классу стать лучшим!</p>
+          
+          <div class="form-group">
+            <label for="register-name">Как тебя зовут (Имя и Фамилия):</label>
+            <input type="text" id="register-name" class="form-control" placeholder="Например: Вася Петров" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="register-grade">Твой класс:</label>
+            <select id="register-grade" class="form-control" required>
+              <option value="" disabled selected>-- Выбери класс --</option>
+              <!-- Заполняется из JS (CLASSES) -->
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Выбери своего питомца (аватарку):</label>
+            <div class="avatar-select-strip" id="register-avatar-strip">
+              <!-- Заполняется из JS -->
+            </div>
+            <input type="hidden" id="register-avatar-val" value="lion">
+          </div>
+          
+          <div class="form-group">
+            <label for="register-password">Придумай пароль:</label>
+            <input type="password" id="register-password" class="form-control" placeholder="Пароль для входа..." required>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Создать кабинет и читать 📖</button>
+        </form>
+      </div>
+
+      <!-- --- АВТОРИЗОВАННЫЙ КАБИНЕТ (LOGGED IN VIEW) --- -->
+      <div id="profile-dashboard-container" style="display: none;">
+        
+        <!-- Вкладки личного кабинета -->
+        <div class="dashboard-tabs">
+          <button type="button" class="dash-tab-btn active" id="btn-tab-my-cabinet" onclick="switchDashboardTab('my-cabinet')">🎒 Мой кабинет</button>
+          <button type="button" class="dash-tab-btn" id="btn-tab-class-ratings" onclick="switchDashboardTab('class-ratings')">🏆 Рейтинг классов</button>
+          <button type="button" class="dash-tab-btn" id="btn-tab-student-ratings" onclick="switchDashboardTab('student-ratings')">🏅 Таблица лидеров</button>
+          <button type="button" class="btn btn-outline btn-logout" onclick="logoutUser()" style="margin-left: auto; padding: 6px 15px; font-size: 0.85rem;">Выйти 🚪</button>
+        </div>
+
+        <!-- 1. ВКЛАДКА: МОЙ КАБИНЕТ -->
+        <div id="dash-tab-view-my-cabinet" class="dash-tab-content active">
+          <div class="profile-grid">
+            <!-- Карточка профиля левая -->
+            <div class="profile-card-left">
+              <div class="profile-avatar-display" id="profile-avatar-emoji">
+                🦁
+                <button class="avatar-edit-btn" onclick="openAvatarModal()" title="Сменить аватар">✏️</button>
+              </div>
+              <h2 id="profile-name-val">Юный Читатель</h2>
+              <p id="profile-grade-val" style="color:var(--text-secondary); font-weight:700;">1 класс</p>
+              
+              <div class="profile-rank-badge" id="profile-rank-badge-val">
+                🎒 Книжный Новобранец
+              </div>
+              
+              <div class="profile-points-display" id="profile-points-val">
+                0 баллов
+              </div>
+              
+              <!-- Прогресс ранга -->
+              <div class="profile-progress-container">
+                <div class="profile-progress-header">
+                  <span>Прогресс ранга</span>
+                  <span id="profile-progress-percent">0%</span>
+                </div>
+                <div class="profile-progress-bar">
+                  <div class="profile-progress-fill" id="profile-progress-fill"></div>
+                </div>
+                <p id="profile-next-rank-desc" style="font-size:0.75rem; color:var(--text-secondary); margin-top:8px; text-align:center;"></p>
+              </div>
+              
+              <!-- Изменение имени/класса -->
+              <div style="border-top:1px solid #ECEFF1; width:100%; padding-top:15px; margin-top:10px; text-align:left;">
+                <h4 style="margin-bottom:8px; font-size:0.85rem;">Редактировать данные:</h4>
+                <form id="edit-profile-form">
+                  <div class="form-group" style="margin-bottom:8px;">
+                    <input type="text" id="edit-profile-name" class="form-control" placeholder="Имя читателя..." style="padding:6px 12px; font-size:0.85rem;" required>
+                  </div>
+                  <div class="form-group" style="margin-bottom:10px;">
+                    <select id="edit-profile-grade" class="form-control" style="padding:6px 12px; font-size:0.85rem;">
+                      <!-- Заполняется динамически -->
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-secondary" style="width:100%; padding:8px 12px; font-size:0.85rem;">Сохранить профиль</button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Достижения и прочитанные книги -->
+            <div class="profile-card-right">
+              <!-- Раздел Достижений -->
+              <div class="profile-block">
+                <h2>🏆 Мои достижения и значки</h2>
+                <div class="badges-grid" id="badges-grid-container">
+                  <!-- Загружается из JS -->
+                </div>
+              </div>
+              
+              <!-- Раздел Прочитанных Книг -->
+              <div class="profile-block">
+                <h2>📚 Мой формуляр прочитанных книг</h2>
+                <div class="read-list-table-wrapper">
+                  <table class="read-list-table">
+                    <thead>
+                      <tr>
+                        <th>Название книги</th>
+                        <th>Автор</th>
+                        <th>Дата прочтения</th>
+                      </tr>
+                    </thead>
+                    <tbody id="read-list-table-body">
+                      <!-- Загружается из JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. ВКЛАДКА: РЕЙТИНГ КЛАССОВ -->
+        <div id="dash-tab-view-class-ratings" class="dash-tab-content">
+          <div class="ratings-container-box">
+            <h2>🏆 Межклассовое книжное соревнование</h2>
+            <p style="color:var(--text-secondary); margin-bottom:20px; font-size:0.95rem;">Ученики какого класса читают активнее всего? За каждую прочитанную книгу ученик приносит своему классу +10 баллов, а за викторины — до +25 баллов!</p>
+            
+            <div class="class-battle-podium" id="class-podium-container">
+              <!-- Заполняется динамически (1, 2, 3 места) -->
+            </div>
+            
+            <div class="class-ratings-list" id="class-ratings-bars-list">
+              <!-- График прогресс-баров -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. ВКЛАДКА: ТАБЛИЦА ЛИДЕРОВ -->
+        <div id="dash-tab-view-student-ratings" class="dash-tab-content">
+          <div class="ratings-container-box">
+            <div class="leaderboard-header-row" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+              <h2>🏅 Топ самых активных читателей школы</h2>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <label for="leaderboard-class-filter" style="font-size:0.85rem; font-weight:700;">Фильтр класса:</label>
+                <select id="leaderboard-class-filter" class="filter-select" onchange="renderStudentLeaderboard()" style="padding:6px 12px; font-size:0.85rem; margin:0;">
+                  <option value="">Все классы</option>
+                  <!-- Заполняется из JS -->
+                </select>
+              </div>
+            </div>
+            
+            <div class="read-list-table-wrapper">
+              <table class="read-list-table leaderboard-table">
+                <thead>
+                  <tr>
+                    <th style="width: 60px; text-align: center;">Место</th>
+                    <th>Ученик</th>
+                    <th style="width: 100px; text-align: center;">Класс</th>
+                    <th style="width: 120px; text-align: center;">Звание</th>
+                    <th style="width: 100px; text-align: right; padding-right:20px;">Баллы</th>
+                  </tr>
+                </thead>
+                <tbody id="student-leaderboard-table-body">
+                  <!-- Заполняется из JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- --- ФУТЕР САЙТА (FOOTER) --- -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <h2>Школьная библиотека «Библиотека 57»</h2>
+        <p>© 2026 ГБОУ Школа №57, г. Москва. Адаптировано для учеников 1–5 классов.</p>
+        <p style="font-size:0.8rem; margin-top:4px; color:#B0BEC5;">Формы защищены по правилам 152-ФЗ. Данные читателей хранятся локально.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#/home">Главная</a></li>
+        <li><a href="#/catalog">Каталог</a></li>
+        <li><a href="#/quizzes">Викторины</a></li>
+        <li><a href="#/links">Интернет</a></li>
+        <li><a href="#/news">Новости</a></li>
+        <li><a href="#/contacts">Контакты</a></li>
+        <li><a href="#/profile">Кабинет</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- --- МОДАЛЬНОЕ ОКНО ВИКТОРИНЫ (QUIZ MODAL) --- -->
+  <div class="quiz-modal" id="quiz-modal">
+    <div class="quiz-modal-box">
+      <button class="quiz-modal-close" onclick="closeQuizModal()">✕</button>
+      <div class="quiz-modal-progress">
+        <div class="quiz-modal-progress-fill" id="quiz-modal-progress-fill"></div>
+      </div>
+      <div class="quiz-modal-header">
+        <span id="quiz-modal-title">Викторина</span>
+        <span id="quiz-progress-text">Вопрос 1 из 5</span>
+      </div>
+      <h2 class="quiz-question-text" id="quiz-question-text">Загрузка...</h2>
+      <div class="quiz-options-container" id="quiz-options-container">
+        <!-- Варианты ответов из JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- --- МОДАЛЬНОЕ ОКНО АВАТАРОК (AVATAR SELECT MODAL) --- -->
+  <div class="avatar-modal" id="avatar-modal">
+    <div class="avatar-modal-box">
+      <h2>Выбери своего питомца! 🐾</h2>
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:15px;">Этот персонаж будет твоим лицом в личном кабинете.</p>
+      <div class="avatar-grid" id="avatar-modal-grid">
+        <!-- Аватарки из JS -->
+      </div>
+      <button class="btn btn-secondary" onclick="closeAvatarModal()" style="width: 100%;">Закрыть</button>
+    </div>
+  </div>
+
+  <!-- --- ВСПЛЫВАЮЩИЙ ИИ ЧАТ-ВИДЖЕТ --- -->
+  <button class="ai-widget-toggle" id="ai-widget-toggle-btn" title="Спросить ИИ-помощника">
+    🧙‍♂️
+  </button>
+  
+  <div class="ai-chat-container" id="ai-chat-container">
+    <div class="chat-header">
+      <div class="chat-header-title">
+        <span class="chat-header-icon">🧙‍♂️</span>
+        <div class="chat-header-info">
+          <h3>Помощник Почитайка</h3>
+          <span>ИИ-помощник Библиотеки 57</span>
+        </div>
+      </div>
+      <button class="chat-close-btn" id="chat-close-btn">✕</button>
+    </div>
+    
+    <!-- Область переписки -->
+    <div class="chat-messages-box" id="chat-messages-box">
+      <!-- Загружается из JS -->
+    </div>
+    
+    <!-- Подсказки быстрых вопросов -->
+    <div class="chat-suggestions-box" id="chat-suggestions-box">
+      <!-- Загружается из JS -->
+    </div>
+    
+    <!-- Поле ввода -->
+    <div class="chat-input-box">
+      <input type="text" id="chat-input-field" placeholder="Спроси меня про книги или правила...">
+      <button class="chat-send-btn" id="chat-send-btn" title="Отправить сообщение">🚀</button>
+    </div>
+  </div>
+
+  <!-- --- ИМПОРТ СКРИПТОВ --- -->
+  <script src="js/tilda-data.js"></script>
+  <script src="js/books-data.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/news.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/quizzes.js"></script>
+  <script src="js/ai-assistant.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
