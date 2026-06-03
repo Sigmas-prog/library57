@@ -642,62 +642,92 @@ function renderClassRatings() {
   const barsContainer = document.getElementById("class-ratings-bars-list");
   if (!podiumContainer || !barsContainer) return;
   
-  const rankings = getClassRankings(); // Массив объектов {className, points}
+  // Расширенный рейтинг с доп. статистикой
+  const baseRankings = getClassRankings();
+  const rankings = baseRankings.map(r => {
+    const classUsers = usersDatabase.filter(u => u.grade === r.className);
+    const totalQuizzes = classUsers.reduce((sum, u) => sum + (u.completedQuizzes ? u.completedQuizzes.length : 0), 0);
+    const totalBooks = classUsers.reduce((sum, u) => sum + (u.readBooks ? u.readBooks.length : 0), 0);
+    return { ...r, students: classUsers.length, quizzes: totalQuizzes, books: totalBooks };
+  });
+  
+  const myGrade = (currentUserId && userProfile) ? userProfile.grade : null;
   
   // 1. Подиум (Топ-3 класса)
   podiumContainer.innerHTML = "";
+  const top3 = rankings.filter(r => r.points > 0).slice(0, 3);
   
-  // Берем топ 3
-  const top3 = rankings.slice(0, 3);
+  if (top3.length === 0) {
+    podiumContainer.innerHTML = `<p style="color:var(--text-secondary); text-align:center;">Баллы начнут накапливаться, как только ученики пройдут первые квизы!</p>`;
+  } else {
+    const order = top3.length === 1 ? [0] : top3.length === 2 ? [1, 0] : [1, 0, 2];
+    order.forEach(placeIdx => {
+      if (placeIdx < top3.length) {
+        const item = top3[placeIdx];
+        const placeNum = placeIdx + 1;
+        const podiumCol = document.createElement("div");
+        podiumCol.className = `podium-column place-${placeNum}`;
+        const isMyClass = item.className === myGrade;
+        const cup = placeNum === 1 ? "🥇" : placeNum === 2 ? "🥈" : "🥉";
+        podiumCol.innerHTML = `
+          <div class="podium-cup">${cup}</div>
+          <div class="podium-class-name" style="${isMyClass ? 'color:var(--color-orange); font-size:1.1rem;' : ''}">${item.className}${isMyClass ? ' ★' : ''}</div>
+          <div style="font-size:0.78rem; color:var(--text-secondary); margin-bottom:6px;">${item.students} уч. · ${item.quizzes} квиз.</div>
+          <div class="podium-pedestal">
+            <span class="podium-points">${item.points} б.</span>
+          </div>
+        `;
+        podiumContainer.appendChild(podiumCol);
+      }
+    });
+  }
   
-  // Отрисовываем 2-е место, 1-е место, 3-е место для визуального сходства с пьедесталом
-  const order = [1, 0, 2]; // Индексы в массиве top3: 2-е место (индекс 1), 1-е место (индекс 0), 3-е место (индекс 2)
-  
-  order.forEach(placeIdx => {
-    if (placeIdx < top3.length) {
-      const item = top3[placeIdx];
-      const placeNum = placeIdx + 1;
-      const podiumCol = document.createElement("div");
-      podiumCol.className = `podium-column place-${placeNum}`;
-      
-      let cup = "🥇";
-      if (placeNum === 2) cup = "🥈";
-      if (placeNum === 3) cup = "🥉";
-      
-      podiumCol.innerHTML = `
-        <div class="podium-cup">${cup}</div>
-        <div class="podium-class-name">${item.className}</div>
-        <div class="podium-pedestal">
-          <span class="podium-points">${item.points} б.</span>
-        </div>
-      `;
-      podiumContainer.appendChild(podiumCol);
-    }
-  });
-  
-  // 2. Полный список классов в виде прогресс-баров
+  // 2. Полный список классов с полосками
   barsContainer.innerHTML = "";
-  
-  // Находим максимальный балл класса для пропорции шкал
   const maxPoints = Math.max(1, ...rankings.map(r => r.points));
+  const barColors = [
+    "linear-gradient(90deg,#26C6DA,#00ACC1)",
+    "linear-gradient(90deg,#AB47BC,#7B1FA2)",
+    "linear-gradient(90deg,#66BB6A,#388E3C)",
+    "linear-gradient(90deg,#FFA726,#E65100)",
+    "linear-gradient(90deg,#EF5350,#B71C1C)",
+    "linear-gradient(90deg,#42A5F5,#1565C0)",
+    "linear-gradient(90deg,#EC407A,#880E4F)",
+    "linear-gradient(90deg,#8D6E63,#4E342E)",
+    "linear-gradient(90deg,#78909C,#37474F)",
+    "linear-gradient(90deg,#26A69A,#00695C)"
+  ];
   
   rankings.forEach((r, idx) => {
     const barItem = document.createElement("div");
     barItem.className = "class-rating-bar-item";
-    
     const percentage = Math.round((r.points / maxPoints) * 100);
     const placeNum = idx + 1;
+    const isMyClass = r.className === myGrade;
+    const color = barColors[idx % barColors.length];
+    const emoji = placeNum === 1 ? "🥇" : placeNum === 2 ? "🥈" : placeNum === 3 ? "🥉" : `${placeNum}.`;
     
     barItem.innerHTML = `
       <div class="class-bar-info">
-        <span class="class-bar-rank">${placeNum}. <strong>Класс ${r.className}</strong></span>
-        <span class="class-bar-score">${r.points} баллов</span>
+        <span class="class-bar-rank">${emoji} <strong>${r.className}</strong>${isMyClass ? ' <span style="font-size:0.7rem;background:var(--color-orange);color:white;padding:1px 7px;border-radius:10px;margin-left:4px;">МОЙ</span>' : ''}
+          <span style="font-size:0.8rem; color:var(--text-secondary); margin-left:8px;">📚${r.books} · 🎮${r.quizzes}</span>
+        </span>
+        <span class="class-bar-score">${r.points} б.</span>
       </div>
       <div class="class-bar-wrapper">
-        <div class="class-bar-fill" style="width: ${percentage}%; background: var(--gradient-teal);"></div>
+        <div class="class-bar-fill" style="--bar-width: ${percentage}%; background: ${color};" data-pct="${percentage}"></div>
       </div>
     `;
     barsContainer.appendChild(barItem);
+  });
+  
+  // Animate bars
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.querySelectorAll(".class-bar-fill").forEach(bar => {
+        bar.classList.add("animated");
+      });
+    }, 100);
   });
 }
 
@@ -718,43 +748,44 @@ function renderStudentLeaderboard() {
   }
   
   const selectedGrade = filterSelect ? filterSelect.value : "";
-  const students = getStudentLeaderboard(selectedGrade);
+  const students = getStudentLeaderboard(selectedGrade).filter(s => !s.isAdmin);
   
   tableBody.innerHTML = "";
   if (students.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-secondary); padding: 20px;">Нет зарегистрированных учеников в этом классе</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-secondary); padding: 20px;">Нет зарегистрированных учеников в этом классе</td></tr>`;
     return;
   }
   
   students.forEach((student, idx) => {
     const tr = document.createElement("tr");
-    if (student.id === currentUserId) {
-      tr.style.background = "#E0F2F1"; // подсветить текущего вошедшего
-    }
+    const isMe = student.id === currentUserId;
+    if (isMe) tr.className = "current-user-row";
     
     const place = idx + 1;
-    let placeHTML = `${place}`;
+    let placeHTML = `<strong>${place}</strong>`;
     if (place === 1) placeHTML = "🥇";
     else if (place === 2) placeHTML = "🥈";
     else if (place === 3) placeHTML = "🥉";
     
-    // Получить ранг звания
-    let studentPoints = student.points;
+    // Ранг звания
     let activeRank = RANKS[0];
     for (const rank of RANKS) {
-      if (studentPoints >= rank.minPoints) {
-        activeRank = rank;
-      }
+      if (student.points >= rank.minPoints) activeRank = rank;
     }
     
+    const quizCount = student.completedQuizzes ? student.completedQuizzes.length : 0;
+    const bookCount = student.readBooks ? student.readBooks.length : 0;
+    
     tr.innerHTML = `
-      <td style="text-align: center; font-weight: bold; font-size: 1.1rem;">${placeHTML}</td>
-      <td style="font-weight: 600;">
-        ${getAvatarEmoji(student.avatar)} ${student.name} ${student.id === currentUserId ? '<span class="you-badge">Ты</span>' : ''}
+      <td style="text-align: center; font-weight: bold; font-size: 1.2rem;">${placeHTML}</td>
+      <td style="font-weight: 600; min-width:140px;">
+        <span style="font-size:1.1rem;">${getAvatarEmoji(student.avatar)}</span> ${student.name}
+        ${isMe ? '<span class="you-badge">Ты</span>' : ''}
       </td>
-      <td style="text-align: center; font-weight: bold; color: var(--color-teal);">${student.grade}</td>
-      <td style="text-align: center; font-size: 0.85rem;">${activeRank.icon} ${activeRank.name}</td>
-      <td style="text-align: right; font-weight: bold; padding-right:20px; color: var(--color-orange);">${student.points}</td>
+      <td style="text-align: center; font-size:0.85rem; color:var(--color-teal); font-weight:600;">${student.grade}</td>
+      <td style="text-align: center; font-size: 0.82rem;">${activeRank.icon} ${activeRank.name}</td>
+      <td style="text-align: center; font-size:0.9rem;">🎮 ${quizCount} · 📚 ${bookCount}</td>
+      <td style="text-align: right; font-weight: 800; padding-right:16px; font-size:1.05rem; color: var(--color-orange);">${student.points} ⭐</td>
     `;
     tableBody.appendChild(tr);
   });

@@ -454,8 +454,7 @@ function processRawBooks(rawBooks) {
 }
 
 function enrichBooksWithQuizzes() {
-  // Список книг, к которым у нас есть викторины (в quizzes.js)
-  const quizTitles = [
+  const localQuizTitles = [
     "Волшебник изумрудного города",
     "Приключения Электроника",
     "Дикий робот",
@@ -465,10 +464,28 @@ function enrichBooksWithQuizzes() {
   ];
   
   for (const book of uniqueBooks) {
-    const matchedQuiz = quizTitles.find(title => book.title.toLowerCase().includes(title.toLowerCase()));
-    if (matchedQuiz) {
+    // 1. Проверяем встроенные викторины
+    const matchedLocal = localQuizTitles.find(title => book.title.toLowerCase().includes(title.toLowerCase()));
+    if (matchedLocal) {
       book.hasQuiz = true;
-      book.quizId = matchedQuiz;
+      book.quizId = matchedLocal;
+      continue;
+    }
+    
+    // 2. Проверяем импортированные викторины из Google Forms
+    if (typeof IMPORTED_QUIZZES !== "undefined") {
+      const clean = t => t.toLowerCase().replace(/[^a-zа-я0-9]/gi, "").replace(/ё/g, "е").trim();
+      const cleanBookTitle = clean(book.title);
+      
+      const matchedImported = IMPORTED_QUIZZES.find(q => {
+        const cleanQuizTitle = clean(q.title);
+        return cleanBookTitle.includes(cleanQuizTitle) || cleanQuizTitle.includes(cleanBookTitle);
+      });
+      
+      if (matchedImported) {
+        book.hasQuiz = true;
+        book.quizId = matchedImported.id;
+      }
     }
   }
 }
