@@ -405,6 +405,16 @@ function updateProfileUI() {
   authContainer.style.display = "none";
   dashContainer.style.display = "block";
   
+  // Показываем/скрываем вкладку админа
+  const adminTabBtn = document.getElementById("btn-tab-admin-panel");
+  if (adminTabBtn) {
+    if (userProfile && userProfile.isAdmin) {
+      adminTabBtn.style.display = "inline-block";
+    } else {
+      adminTabBtn.style.display = "none";
+    }
+  }
+  
   // Синхронизируем вкладку "Мой кабинет"
   if (currentDashboardTab === "my-cabinet") {
     const nameLabel = document.getElementById("profile-name-val");
@@ -528,6 +538,9 @@ function switchDashboardTab(tab) {
     document.getElementById("btn-tab-student-ratings").classList.add("active");
     document.getElementById("dash-tab-view-student-ratings").classList.add("active");
     renderStudentLeaderboard();
+  } else if (tab === "admin-panel") {
+    document.getElementById("btn-tab-admin-panel").classList.add("active");
+    document.getElementById("dash-tab-view-admin-panel").classList.add("active");
   }
 }
 
@@ -550,32 +563,27 @@ function renderRegisterAvatarStrip() {
   });
 }
 
-// Обновление выпадающего списка имен для логина при выборе класса
+// Обновление списка подсказок имен для логина при выборе класса
 function updateLoginNamesDropdown() {
   const grade = document.getElementById("login-grade").value;
-  const nameSelect = document.getElementById("login-name");
+  const nameInput = document.getElementById("login-name");
+  const datalist = document.getElementById("login-names-list");
   
-  nameSelect.innerHTML = "";
+  if (!datalist) return;
+  datalist.innerHTML = "";
+  
   if (!grade) {
-    nameSelect.disabled = true;
-    nameSelect.innerHTML = `<option value="" disabled selected>-- Сначала выбери класс --</option>`;
+    nameInput.placeholder = "Сначала выбери класс";
     return;
   }
   
+  nameInput.placeholder = "Введи своё имя...";
   const names = getUsersInClass(grade);
-  if (names.length === 0) {
-    nameSelect.disabled = true;
-    nameSelect.innerHTML = `<option value="" disabled selected>Нет зарегистрированных учеников</option>`;
-  } else {
-    nameSelect.disabled = false;
-    nameSelect.innerHTML = `<option value="" disabled selected>-- Выбери своё имя --</option>`;
-    names.forEach(name => {
-      const opt = document.createElement("option");
-      opt.value = name;
-      opt.innerText = name;
-      nameSelect.appendChild(opt);
-    });
-  }
+  names.forEach(name => {
+    const opt = document.createElement("option");
+    opt.value = name;
+    datalist.appendChild(opt);
+  });
 }
 
 // Рендеринг рейтинга классов

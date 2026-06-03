@@ -322,6 +322,34 @@ function registerUser(name, grade, password, avatar = "lion") {
 
 // Авторизация ученика
 function loginUser(grade, name, password) {
+  // Проверяем админский логин
+  if (name.trim().toLowerCase() === "лиди нефф" && password === "admin") {
+    let adminUser = usersDatabase.find(u => u.id === "admin_lidi");
+    if (!adminUser) {
+      adminUser = {
+        id: "admin_lidi",
+        name: "Лиди Нефф",
+        grade: "Библиотекарь",
+        avatar: "owl",
+        points: 999,
+        password: "admin",
+        readBooks: [],
+        badges: ["first_step", "knowledge_hunter", "bookworm", "super_brain"],
+        completedQuizzes: [],
+        isAdmin: true
+      };
+      usersDatabase.push(adminUser);
+      localStorage.setItem("lib57_users_db", JSON.stringify(usersDatabase));
+    }
+    
+    currentUserId = adminUser.id;
+    userProfile = adminUser;
+    localStorage.setItem("lib57_current_user_id", adminUser.id);
+    
+    if (window.updateProfileUI) window.updateProfileUI();
+    return { success: true, user: adminUser };
+  }
+
   const user = usersDatabase.find(u => u.grade === grade && u.name.toLowerCase() === name.toLowerCase());
   
   if (!user) {
