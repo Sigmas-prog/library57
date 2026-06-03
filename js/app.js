@@ -134,10 +134,18 @@ function renderHomePage() {
   if (!slider) return;
   slider.innerHTML = "";
   
-  // Выбираем книги с наибольшим количеством копий для Топ-7
-  const topBooks = [...uniqueBooks]
+  // Выбираем детские книги с реальными обложками для Топ-7
+  let topBooks = [...uniqueBooks]
+    .filter(book => book.coverUrl && !book.title.includes("АГП") && !book.title.includes("Основы") && !book.title.includes("конфликт") && !book.title.includes("патриотич"))
     .sort((a, b) => b.copies - a.copies)
     .slice(0, 7);
+    
+  if (topBooks.length < 7) {
+    const remaining = [...uniqueBooks]
+      .filter(book => !topBooks.includes(book) && !book.title.includes("АГП"))
+      .sort((a, b) => b.copies - a.copies);
+    topBooks = topBooks.concat(remaining.slice(0, 7 - topBooks.length));
+  }
     
   topBooks.forEach((book, idx) => {
     const card = document.createElement("div");
@@ -214,9 +222,9 @@ function renderCatalogPage() {
     const allCard = document.createElement("div");
     allCard.className = `genre-card ${selectedGenre === "" ? "active" : ""}`;
     allCard.id = "genre-card-all";
+    allCard.style.backgroundImage = "url('assets/library_hero.png')";
     allCard.onclick = () => filterByGenre("");
     allCard.innerHTML = `
-      <div class="genre-card-icon" style="background: var(--gradient-rainbow); color: white;">📚</div>
       <h3>Все книги</h3>
     `;
     genreGrid.appendChild(allCard);
@@ -227,10 +235,10 @@ function renderCatalogPage() {
       const card = document.createElement("div");
       card.className = `genre-card ${selectedGenre === genreKey ? "active" : ""}`;
       card.id = `genre-card-${genreKey}`;
+      card.style.backgroundImage = `url('${g.cover}')`;
       card.onclick = () => filterByGenre(genreKey);
       
       card.innerHTML = `
-        <div class="genre-card-icon" style="background: ${g.color}; color: white; font-size: 2.2rem;">${g.icon}</div>
         <h3>${genreKey}</h3>
       `;
       genreGrid.appendChild(card);

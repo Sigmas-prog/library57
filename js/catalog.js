@@ -6,102 +6,122 @@ const GENRES = {
   "Сказки": {
     subgenres: ["Русские народные", "Сказки народов мира", "Авторские сказки"],
     color: "linear-gradient(135deg, #FFE082, #FFB300)",
-    icon: "🌟"
+    icon: "🌟",
+    cover: "https://static.tildacdn.com/tild3330-3464-4432-b063-366432313364/kandinsky-download-1.png"
   },
   "Древний мир": {
     subgenres: ["Каменный век", "Мифы"],
     color: "linear-gradient(135deg, #FFAB91, #D84315)",
-    icon: "🏺"
+    icon: "🏺",
+    cover: "https://static.tildacdn.com/tild6432-6463-4865-a134-393765323630/kandinsky-download-1.png"
   },
   "Космос": {
     subgenres: [],
     color: "linear-gradient(135deg, #B39DDB, #5E35B1)",
-    icon: "🚀"
+    icon: "🚀",
+    cover: "https://static.tildacdn.com/tild6531-6230-4965-b964-396463316239/photo.png"
   },
   "Детективы": {
     subgenres: [],
     color: "linear-gradient(135deg, #80CBC4, #00695C)",
-    icon: "🔍"
+    icon: "🔍",
+    cover: "https://static.tildacdn.com/tild6265-6166-4430-b831-666239646562/kandinsky-download-1.png"
   },
   "Мир науки": {
     subgenres: ["Математика", "Физика", "Биология", "История", "География", "Химия", "Психология", "Программирование", "Языкознание"],
     color: "linear-gradient(135deg, #90CAF9, #1565C0)",
-    icon: "🔬"
+    icon: "🔬",
+    cover: "https://static.tildacdn.com/tild6161-6161-4239-a335-656535666666/kandinsky-download-1.png"
   },
   "Мир Магии (Фэнтези)": {
     subgenres: [],
     color: "linear-gradient(135deg, #E1BEE7, #8E24AA)",
-    icon: "🔮"
+    icon: "🔮",
+    cover: "https://static.tildacdn.com/tild3830-6139-4935-a533-633363316164/_.jpg"
   },
   "Смешные истории": {
     subgenres: [],
     color: "linear-gradient(135deg, #FFE082, #F57C00)",
-    icon: "😜"
+    icon: "😜",
+    cover: "https://static.tildacdn.com/tild3261-3832-4365-a138-383063636631/kandinsky-download-1.png"
   },
   "Кругосветка(путешествия, приключения)": {
     subgenres: [],
     color: "linear-gradient(135deg, #A5D6A7, #2E7D32)",
-    icon: "🧭"
+    icon: "🧭",
+    cover: "https://static.tildacdn.com/tild6332-3634-4162-a463-306162653635/photo1712844707.jpeg"
   },
   "Путешествия во времени": {
     subgenres: [],
     color: "linear-gradient(135deg, #F48FB1, #C2185B)",
-    icon: "⏳"
+    icon: "⏳",
+    cover: "https://static.tildacdn.com/tild3137-3761-4262-b532-636134343331/__.jpg"
   },
   "Пираты и разбойники": {
     subgenres: [],
     color: "linear-gradient(135deg, #EF9A9A, #C62828)",
-    icon: "🏴‍☠️"
+    icon: "🏴‍☠️",
+    cover: "https://static.tildacdn.com/tild3864-6431-4765-a566-356134643936/___1.png"
   },
   "Истории о дружбе и любви": {
     subgenres: [],
     color: "linear-gradient(135deg, #F8BBD0, #E91E63)",
-    icon: "❤️"
+    icon: "❤️",
+    cover: "https://static.tildacdn.com/tild3730-3633-4164-b238-636165633734/kandinsky-download-1.png"
   },
   "Папы, мамы, бабушки и дедушки": {
     subgenres: [],
     color: "linear-gradient(135deg, #FFCC80, #EF6C00)",
-    icon: "🏡"
+    icon: "🏡",
+    cover: "https://static.tildacdn.com/tild3238-3264-4831-b935-663138343832/kandinsky-download-1.png"
   },
   "Другое детство": {
     subgenres: [],
     color: "linear-gradient(135deg, #CE93D8, #6A1B9A)",
-    icon: "🎒"
+    icon: "🎒",
+    cover: "https://static.tildacdn.com/tild3233-3463-4932-b963-313065643034/kandinsky-download-1.png"
   },
   "Футболисты-Шахматисты": {
     subgenres: [],
     color: "linear-gradient(135deg, #C5E1A5, #558B2F)",
-    icon: "⚽"
+    icon: "⚽",
+    cover: "https://static.tildacdn.com/tild6633-6330-4137-b336-303030653161/kandinsky-download-1.png"
   },
   "Драконы и динозавры": {
     subgenres: [],
     color: "linear-gradient(135deg, #81C784, #1B5E20)",
-    icon: "🦖"
+    icon: "🦖",
+    cover: "https://static.tildacdn.com/tild6466-6130-4362-a630-383036643235/kandinsky-download-1.png"
   },
   "Роботы": {
     subgenres: [],
     color: "linear-gradient(135deg, #80DEEA, #00838F)",
-    icon: "🤖"
+    icon: "🤖",
+    cover: "https://static.tildacdn.com/tild6363-3266-4063-b062-306130323938/kandinsky-download-1.png"
   },
   "Страшилки": {
     subgenres: [],
     color: "linear-gradient(135deg, #B0BEC5, #37474F)",
-    icon: "👻"
+    icon: "👻",
+    cover: "https://static.tildacdn.com/tild3033-3164-4564-b934-613565333833/kandinsky-download-1.png"
   },
   "Мир Искусства": {
     subgenres: ["Музыка, Театр, Балет", "Художники"],
     color: "linear-gradient(135deg, #D1C4E9, #4527A0)",
-    icon: "🎨"
+    icon: "🎨",
+    cover: "https://static.tildacdn.com/tild3036-3366-4539-a463-633430323236/kandinsky-download-1.png"
   },
   "Мир Насекомых": {
     subgenres: [],
     color: "linear-gradient(135deg, #E6EE9C, #9E9D24)",
-    icon: "🦋"
+    icon: "🦋",
+    cover: "https://static.tildacdn.com/tild3738-6435-4865-b862-643235326634/kandinsky-download-1.png"
   },
   "Мир Животных": {
     subgenres: ["Кошки", "Собаки", "Грызуны", "Лошади", "Другие животные", "Зоопарк", "Цирк", "Фантастические животные"],
     color: "linear-gradient(135deg, #D7CCC8, #4E342E)",
-    icon: "🐾"
+    icon: "🐾",
+    cover: "https://static.tildacdn.com/tild6261-3835-4464-a466-653866336530/kandinsky-download-1.png"
   }
 };
 
